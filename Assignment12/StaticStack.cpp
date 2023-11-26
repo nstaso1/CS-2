@@ -1,25 +1,77 @@
+#include <iostream>
 #include <string>
-#ifndef STATIC_STACK_H
-#define STATIC_STACK_H
+
+#include "Static-Stack.h"
 
 using namespace std;
 
-class Stack
+
+Stack::Stack(int size)
 {
-public:
-    Stack(int size);
-    ~Stack();
+    stackArr = new string[size];
+    stackS = size;
+    tops = -1;
+}
 
-    
-    void push(string str);
-    void pop(string& str);
-    bool isFull();
-    bool isEmpty();
-    void printS();
+Stack::~Stack()
+{
+    delete[] stackArr;
+}
 
-private:
-    string* stackArr;
-    int     stackS;
-    int     tops;
-};
-#endif
+
+bool Stack::isEmpty()
+{
+    return tops == -1 ? true : false;
+}
+
+bool Stack::isFull()
+{
+    return tops == stackS - 1 ? true : false;
+}
+
+void Stack::printS()
+{
+    if (isEmpty())
+    {
+        cout << "Stack has nothing." << endl;
+        return;
+    }
+
+    cout << "Printing stack..." << endl;
+
+    for (int i = stackS - 1; i >= 0; i--)
+    {
+        cout << "#" << i << ": " << stackArr[i] << endl;
+    }
+}
+
+
+void Stack::push(string str)
+{
+    if (isFull())
+    {
+        cout << "Stack is full." << endl;
+    }
+    else
+    {
+        tops++;
+        stackArr[tops] = str;
+    }
+}
+
+void Stack::pop(string& str)
+{
+    if (isEmpty())
+    {
+        cout << "There is nothing in stack." << endl;
+    }
+    else
+    {
+        str = stackArr[tops];
+        stackArr[tops] = "";
+        tops--;
+    }
+}
+
+
+
