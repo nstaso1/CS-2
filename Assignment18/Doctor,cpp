@@ -1,0 +1,22 @@
+#include <iostream>
+#include <string>
+
+#include "Doctor.h"
+
+using namespace std;
+Doctor::Doctor (string name, string field) : hospitalEmployee (name, field)
+{
+    
+}
+void Doctor::checkCharts()
+{
+    if (onCall == true)
+    {
+        cout << "Charts have been checked." << endl;
+    }
+
+    else
+    {
+        cout << "Sorry it's not my shift." << endl;
+    }
+}
