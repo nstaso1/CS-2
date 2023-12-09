@@ -1,0 +1,28 @@
+#ifndef CUSTOMER_DATA_H
+#define CUSTOMER_DATA_H
+
+#include <string>
+
+#include "PersonalData.h"
+
+using namespace std;
+
+
+class CustomerData : public PersonData
+{
+    public:
+        CustomerData() = default;
+
+        int  getCN();
+        bool getML();
+
+        void setCN(int customerNumber);
+        void setML(bool mailingList);
+
+    private:
+        int  cN;
+        bool mL;
+
+};
+
+#endif
