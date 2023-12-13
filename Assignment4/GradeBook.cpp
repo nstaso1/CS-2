@@ -1,370 +1,120 @@
-// Grade-Book.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Assignment 4
 //
+// A teacher has five students who have taken four tests. The teacher uses the following grading
+// scale to assign a letter grade to a student, based on the average of his or her four test scores.
+//
+// Write a program that uses an array of string objects to hold the five students' names, an array of
+// five characters to hold the five students' letter grades, and five arrays of four doubles to hold
+// each student's set of test scores. The program should allow the user to enter each student's name
+// and his or her four test scores. It should then calculate and display each student's average test
+// score, and a letter grade based on the average.
+//
+// Input validation: Do not accept test scores less than 0 or greater than 100.
+
 
 #include <iostream>
+#include <iomanip>
 #include <string>
+
 using namespace std;
+
+void inputD(string names[], double scores[][4], int numS);
+void calcD(double scores[][4], double avgS[], char grades[], int numS);
+char gradeT(double score);
+void printD(string names[], double avgS[], char grades[], int numS);
 
 int main()
 {
-    string names[5] = {};
-    char grades[5] = {'A', 'B', 'C', 'D', 'F'};
-    double testScores1[4] = {};
-    double testScores2[4] = {};
-    double testScores3[4] = {};
-    double testScores4[4] = {};
-    double testScores5[4] = {};
+    cout << "Running program..." << endl;
 
-    cout << "Please enter student1 name" << endl;
-    cin >> names[0];
+    const int NUM_STUDENTS = 5;
+    const int NUM_SCORES = 4;
 
-    cout << "Please enter student2 name" << endl;
-    cin >> names[1];
+    string names[NUM_STUDENTS];
+    char   grades[NUM_STUDENTS];
+    double scores[NUM_STUDENTS][NUM_SCORES];
+    double avgScores[NUM_STUDENTS];
 
-    cout << "Please enter student3 name" << endl;
-    cin >> names[2];
 
-    cout << "Please enter student4 name" << endl;
-    cin >> names[3];
+    inputD(names, scores, NUM_STUDENTS);
 
-    cout << "Please enter student5 name" << endl;
-    cin >> names[4];
+    calcD(scores, avgScores, grades, NUM_STUDENTS);
 
-    cout << "Please enter student5 test score" << endl;
-    cin >> testScores1[0];
+    cout << "\nDisplaying gradebook..." << endl;
+    printD(names, avgScores, grades, NUM_STUDENTS);
 
-    if (testScores1[0] < 0 || testScores1[0] > 100)
-    {
-        exit(0);
-    }
 
-    cout << "Please enter student1 test score" << endl;
-    cin >> testScores1[1];
-
-    if (testScores1[1] < 0 || testScores1[1] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student1 test score" << endl;
-    cin >> testScores1[2];
-
-    if (testScores1[2] < 0 || testScores1[2] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student1 test score" << endl;
-    cin >> testScores1[3];
-
-    if (testScores1[3] < 0 || testScores1[3] > 100)
-    {
-        exit(0);
-    }
-    
-
-    cout << "Please enter student2 test score" << endl;
-    cin >> testScores2[0];
-
-    if (testScores2[0] < 0 || testScores2[0] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student2 test score" << endl;
-    cin >> testScores2[1];
-
-    if (testScores2[1] < 0 || testScores1[1] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student2 test score" << endl;
-    cin >> testScores2[2];
-
-    if (testScores2[2] < 0 || testScores2[2] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student2 test score" << endl;
-    cin >> testScores2[3];
-
-    if (testScores2[3] < 0 || testScores2[3] > 100)
-    {
-        exit(0);
-    }
-    
-
-    cout << "Please enter student3 test score" << endl;
-    cin >> testScores3[0];
-
-    if (testScores3[0] < 0 || testScores3[0] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student3 test score" << endl;
-    cin >> testScores3[1];
-
-    if (testScores3[1] < 0 || testScores3[1] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student3 test score" << endl;
-    cin >> testScores3[2];
-
-    if (testScores3[2] < 0 || testScores3[2] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student3 test score" << endl;
-    cin >> testScores3[3];
-
-    if (testScores3[3] < 0 || testScores1[3] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student4 test score" << endl;
-    cin >> testScores4[0];
-
-    if (testScores4[0] < 0 || testScores4[0] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student4 test score" << endl;
-    cin >> testScores4[1];
-
-    if (testScores4[1] < 0 || testScores4[1] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student4 test score" << endl;
-    cin >> testScores4[2];
-
-    if (testScores4[2] < 0 || testScores4[2] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student4 test score" << endl;
-    cin >> testScores4[3];
-
-    if (testScores4[3] < 0 || testScores4[3] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student5 test score" << endl;
-    cin >> testScores5[0];
-
-    if (testScores5[0] < 0 || testScores5[0] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student5 test score" << endl;
-    cin >> testScores5[1];
-
-    if (testScores5[1] < 0 || testScores5[1] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student5 test score" << endl;
-    cin >> testScores5[2];
-
-    if (testScores5[2] < 0 || testScores5[2] > 100)
-    {
-        exit(0);
-    }
-
-    cout << "Please enter student5 test score" << endl;
-    cin >> testScores5[3];
-
-    if (testScores5[3] < 0 || testScores5[3] > 100)
-    {
-        exit(0);
-    }
-
-    
-
-    double avg1 = (testScores1[0] + testScores1[1] + testScores1[2] + testScores1[3])/4;
-
-    double avg2 = (testScores2[0] + testScores2[1] + testScores2[2] + testScores2[3])/4;
-
-    double avg3 = (testScores3[0] + testScores3[1] + testScores3[2] + testScores3[3])/4;
-
-    double avg4 = (testScores4[0] + testScores4[1] + testScores4[2] + testScores4[3])/4;
-        
-    double avg5 = (testScores5[0] + testScores5[1] + testScores5[2] + testScores5[3])/4;
-
-    
-    if (avg1 >= 90 || avg1 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg1 >= 80 || avg1 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg1 >= 70 || avg1 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg1 >= 60 || avg1 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg1 >= 0 || avg1 <= 59)
-    {
-        cout << grades[4];
-    }
-
-    if (avg2 >= 90 || avg2 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg2 >= 80 || avg2 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg2 >= 70 || avg2 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg2 >= 60 || avg2 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg2 >= 0 || avg2 <= 59)
-    {
-        cout << grades[4];
-    }
-
-    if (avg3 >= 90 || avg3 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg3 >= 80 || avg3 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg3 >= 70 || avg3 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg3 >= 60 || avg3 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg3 >= 0 || avg3 <= 59)
-    {
-        cout << grades[4];
-    }
-
-    if (avg3 >= 90 || avg3 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg3 >= 80 || avg3 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg3 >= 70 || avg3 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg3 >= 60 || avg3 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg3 >= 0 || avg3 <= 59)
-    {
-        cout << grades[4];
-    }
-
-    if (avg4 >= 90 || avg4 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg4 >= 80 || avg4 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg4 >= 70 || avg4 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg4 >= 60 || avg4 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg4 >= 0 || avg4 <= 59)
-    {
-        cout << grades[4];
-    }
-
-    if (avg5 >= 90 || avg5 <= 100)
-    {
-        cout << grades[0];
-    }
-
-    if (avg5 >= 80 || avg5 <= 89)
-    {
-        cout << grades[1];
-    }
-
-    if (avg5 >= 70 || avg5 <= 79)
-    {
-        cout << grades[2];
-    }
-
-    if (avg5 >= 60 || avg5 <= 69)
-    {
-        cout << grades[3];
-    }
-
-    if (avg5 >= 0 || avg5 <= 59)
-    {
-        cout << grades[4];
-    }
-
-
+    return 0;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void inputD(string names[], double scores[][4], int numS)
+{
+    for (int i = 0; i < numS; i++)
+    {
+        cout << "\nEnter name for student #" << i + 1 << ": ";
+        getline(cin, names[i]);
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+        for (int j = 0; j < 4; j++)
+        {
+            cout << "Enter their score for test #" << j + 1 << ": ";
+            cin >> scores[i][j];
+            cin.ignore();
+            while (scores[i][j] < 0 || scores[i][j] > 100)
+            {
+                cout << "Invalid test score! Please try again..." << endl;
+                cout << "Enter their score for test #" << j + 1 << ": ";
+                cin >> scores[i][j];
+                cin.ignore();
+            }
+        }
+    }
+}
+
+void calcD(double scores[][4], double avgS[], char grades[], int numS)
+{
+    double sums[numS];
+
+    for (int i = 0; i < numS; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            sums[i] = sums[i] + scores[i][j];
+        }
+        avgS[i] = sums[i] / 4;
+        grades[i] = gradeT(avgS[i]);
+    }
+}
+
+char gradeT(double score)
+{
+    if (score >= 90) {
+        return 'A';
+    }
+    else if (score >= 80) {
+        return 'B';
+    }
+    else if (score >= 70) {
+        return 'C';
+    }
+    else if (score >= 60) {
+        return 'D';
+    }
+    else {
+        return 'F';
+    }
+}
+
+void printD(string names[], double avgScores[], char grades[], int numStudents)
+{
+    cout << left
+        << setw(20) << "Name"
+        << setw(12) << "Avg Score"
+        << setw(12) << "Letter Grade" << endl;
+
+    for (int i = 0; i < numStudents; i++)
+    {
+        cout << setw(20) << names[i]
+            << setw(12) << avgScores[i]
+            << setw(12) << grades[i] << endl;
+    }
+}
