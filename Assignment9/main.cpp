@@ -12,34 +12,39 @@ using namespace std;
 
 int main()
 {
-    cout << "Creating an ArrayList" << endl;
-    myArrayList myList = myArrayList();
+    cout << "Creating ArrayList" << endl;
+    ArrayList myList = ArrayList();
 
-    cout << "Inserting 5 numbers (3, 10, 7, 2, 9)" << endl;
-    myList.insertE(3);
-    myList.insertE(10);
-    myList.insertE(7);
-    myList.insertE(2);
-    myList.insertE(9);
+    cout << "Inserting 5 numbers (7, 22, 9, 7, 14)..." << endl;
+    myList.insert(7);
+    myList.insert(22);
+    myList.insert(9);
+    myList.insert(7);
+    myList.insert(14);
 
-    cout << "myList.isFull():    " << myList.isFull() << endl;
-    cout << "myList.getLength(): " << myList.getLength() << endl;
+    
+    myList.isF();
+    cout << endl;
+    cout << "Length: " << myList.getL() << endl;
 
-    cout << "myList.remove()" << endl;
+    cout << "Removed last element." << endl;
     myList.removeE();
 
-    cout << "myList.isFull():    " << myList.isFull() << endl;
-    cout << "myList.getLength(): " << myList.getLength() << endl;
-    cout << "myList.find(2):     " << myList.find(2) << endl;
+    myList.isF();
+    cout << endl;
+    cout << "Length: " << myList.getL() << endl;
+    cout << "Found: " << myList.find(2) << endl;
 
-    cout << "myList.showValues()" << endl;
-    myList.showValues();
+   
+    myList.showV();
 
-    cout << "myList.makeEmpty()" << endl;
-    myList.makeEmpty();
+  
+    myList.makeE();
+    
 
-    cout << "myList.showValues()" << endl;
-    myList.showValues();
+ 
+    myList.showV();
+    
 
 
 
