@@ -1,15 +1,15 @@
 #include <iostream>
 
-#include "myLinkedList.h"
+#include "linkedList.h"
 
 using namespace std;
 
-myLinkedList::myLinkedList()
+LinkedList::LinkedList()
 {
-    _head = nullptr;
+    _head  = nullptr;
 }
 
-myLinkedList::~myLinkedList()
+LinkedList::~LinkedList()
 {
     while (_head != nullptr)
     {
@@ -17,93 +17,76 @@ myLinkedList::~myLinkedList()
     }
 }
 
-void myLinkedList::addN(int v)
+void LinkedList::appendN(int val)
 {
-    ListN* newN = new ListN;
-    newN->_val = v;
-    newN->_next = nullptr;
+    ListNode* newNode = new ListNode;
+    newNode->_val = val;
+    newNode->_next = nullptr;
 
-    
+    // If LinkedList is empty, set new node to be head
     if (_head == nullptr)
     {
-        _head = newN;
+        _head = newNode;
         return;
     }
 
-    
-    ListN* temp = _head;
+    // If LinkedList has nodes, traverse through list until
+    // temp is set to last node
+    ListNode* temp = _head;
     while (temp->_next != nullptr)
-    {
+    {   
         temp = temp->_next;
     }
 
     // set new node to be _next of temp
-    temp->_next = newN;
+    temp->_next = newNode;
 }
 
-void myLinkedList::displayV()
+void LinkedList::insertN(int val, int location)
 {
+    ListNode* newNode = new ListNode;
+    newNode->_val     = val;
+
+    // If list is empty, point head to newNode
     if (_head == nullptr)
     {
-        cout << "LinkedList is empty." << endl;
-        return;
-    }
-
-    cout << "Displaying values: ";
-    ListN* temp = _head;
-    while (temp != nullptr)
-    {
-        cout << temp->_val << " ";
-        temp = temp->_next;
-    }
-    cout << endl;
-}
-
-void myLinkedList::insertN(int v, int local)
-{
-    ListN* newN = new ListN;
-    newN->_val = v;
-
-    
-    if (_head == nullptr)
-    {
-        _head = newN;
+        _head        = newNode;
         _head->_next = nullptr;
         return;
     }
 
-    
-    if (local == 0)
+    // If intended insert location is 0, make the newNode point to the current head
+    // Make the newNode the new head of the list
+    if (location == 0)
     {
-        newN->_next = _head;
-        _head = newN;
+        newNode->_next = _head;
+        _head          = newNode;
         return;
     }
 
-    ListN* temp1 = _head;
-    ListN* temp2 = temp1->_next;
-    int       nodeN = 0;
+    ListNode* temp1   = _head;
+    ListNode* temp2   = temp1->_next;
+    int       nodeNum = 0;
 
-    while (nodeN != local - 1)
+    while (nodeNum != location - 1)
     {
-        temp1 = temp1->_next;
-
         if (temp1->_next == nullptr)
         {
             temp2 = nullptr;
             break;
         }
 
+        temp1 = temp1->_next;
         temp2 = temp1->_next;
-
-        nodeN++;
+        
+        nodeNum++;
     }
 
-    temp1->_next = newN;
-    newN->_next = temp2;
+    temp1->_next = newNode;
+    newNode->_next = temp2;
 }
 
-void myLinkedList::deleteN()
+void LinkedList::deleteN()
 {
     if (_head == nullptr)
     {
@@ -111,7 +94,14 @@ void myLinkedList::deleteN()
         return;
     }
 
-    ListN* temp = _head;
+    if (_head->_next == nullptr)
+    {
+        delete _head;
+        _head = nullptr;
+        return;
+    }
+
+    ListNode* temp = _head;
     while (temp->_next->_next != nullptr)
     {
         temp = temp->_next;
@@ -121,4 +111,37 @@ void myLinkedList::deleteN()
     temp->_next = nullptr;
 }
 
+int LinkedList::search(int val)
+{
+    int location = 0;
 
+    ListNode* temp = _head;
+    while (temp != nullptr) 
+    {
+        if (temp->_val == val) {
+            return location;
+        }
+        temp = temp->_next;
+        location++;
+    }
+
+    return -1;
+}
+
+void LinkedList::displayV()
+{
+    if (_head == nullptr)
+    {
+        cout << "LinkedList empty." << endl;
+        return;
+    }
+
+    cout << "Displaying vals: ";
+    ListNode* temp = _head;
+    while (temp != nullptr)
+    {
+        cout << temp->_val << " ";
+        temp = temp->_next;
+    }
+    cout << endl;
+}
