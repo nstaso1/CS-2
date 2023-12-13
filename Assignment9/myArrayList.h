@@ -1,29 +1,24 @@
+#ifndef ARRAYLIST_H
+#define ARRAYLIST_H
 
-
-#ifndef MYARRAYLIST_H
-#define MYARRAYLIST_H
-
-
-class myArrayList
+class ArrayList
 {
+    public:
+        // Constructor
+        ArrayList() = default;
 
-    
-public:
-    myArrayList()
-    {
-        length = 0;
-    }
-   
-    void showValues();
-    void insertE(int e);
-    void removeE();
-    void isFull();
-    void findE(int value);
-    void getLength();
-    void makeEmpty();
-private:
-    static const int SIZE = 10;
-    int length;
-    int array[SIZE];
+        // Utility
+        void insert(int num);
+        void removeE();
+        bool isF();
+        int  find(int index);
+        int  getL();
+        void makeE();
+        void showV();
+
+    private:
+        int numss[5];
+        int elementss = 0;
 };
+
 #endif
