@@ -1,106 +1,110 @@
-// TestScores-1.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Test Scores #1
+// 
+// Write a program that dynamically allocates an array large enough to hold a user
+// defined number of test scores. Once all the scores are entered, the array should 
+// be passed to a function that sorts them in ascending order. Another function should
+// be called that calculates the average score. The program should display the sorted
+// list of scores and averages with appropriate headings. Use pointer notation rather
+// than array notation whenever possible.
 //
+// Input Validation: Do not accept negative numbers for test scores.
 
 #include <iostream>
+#include <iomanip>
+
 using namespace std;
 
 
-int avgValue(int scores[], int size);
-void BubbleSort(int scores[], int size);
-void SelectionSort(int scores[], int size);
+void calcA(double scores[], int size, double& avgS);
+void printD(double scores[], int numS, double avgS);
+void swap(double& a, double& b);
+void inputS(double scores[], int numS);
+void sortS(double scores[], int size);
+
 
 int main()
 {
-    int average;
-    int* scores = nullptr;
-    int number;
-    cout << "Please enter certain amount of test scores you want recorded: " << endl;
-    cin >> number;
+    double* scores;
+    int     numS;
+    double  avgS;
 
-    scores = new int[number];
+    cout << "Number of scores: ";
+    cin >> numS;
 
-    
-    for (int i = 0; i < number; i++)
-    {
-        cout << "Please enter the test score: " << endl;
-        cin >> scores[i];
-    }
+    scores = new double[numS];
 
+    inputS(scores, numS);
 
-    BubbleSort(scores, number);
+    sortS(scores, numS);
 
-        for (int i = 0; i < number; i++)
-        {
-            cout << scores[i] << " ";
-           
-        }
-        cout << endl;
+    calcA(scores, numS, avgS);
 
-    average = avgValue(scores, number);
+    printD(scores, numS, avgS);
 
-    cout << "Average: " << average;
-
-  
-
-
+    return 0;
 }
 
-void BubbleSort(int scores[], int size)
+void inputS(double scores[], int numS)
+{
+    for (int i = 0; i < numS; i++)
+    {
+        cout << "Score #" << i + 1 << ": ";
+        cin >> *(scores + i);
+
+        while (*(scores + i) < 0) {
+            cout << "Invalid input! Please try again..." << endl;
+            cin >> *(scores + i);
+        }
+    }
+}
+
+void sortS(double scores[], int size)
 {
     int maxElement;
+    int index;
+
     for (maxElement = size - 1; maxElement > 0; maxElement--)
     {
-        for (int i = 0; i < maxElement; i++)
+        for (index = 0; index < maxElement; index++)
         {
-            if (scores[i] > scores[i + 1])
-            {
-                swap(scores[i], scores[i + 1]);
+            if (*(scores + index) > *(scores + (index + 1))) {
+                swap(*(scores + index), *(scores + (index + 1)));
             }
         }
     }
-
 }
 
-void SelectionSort(int scores[], int size)
 
+
+void calcA(double scores[], int size, double& avgS)
 {
+    double sum = 0;
 
-    int minElement, minIndex;
-    for (int start = 0; start < (size - 1); start++)
-    {
-        minIndex = start;
-        minElement = scores[start];
-        for (int i = start + 1; i < size; i++)
-        {
-            if (scores[i] < minElement)
-            {
-                minElement = scores[i];
-                minIndex = i;
-            }
-        }
-        swap(scores[minIndex], scores[start]);
-    }
-
-}
-
-int avgValue(int scores[], int size)
-{
-    int total = 0;
     for (int i = 0; i < size; i++)
     {
-        total += scores[i];
+        sum = sum += *(scores + i);
     }
-    int avg = total / (size);
-    return avg;
+
+    avgS = sum / size;
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+void printD(double scores[], int numScores, double avgS)
+{
+    cout << setw(15) << "Scores sorted: ";
+    for (int i = 0; i < numScores; i++)
+    {
+        cout << *(scores + i);
+        if (i != numScores - 1) {
+            cout << ", ";
+        }
+    }
+    cout << endl;
+    cout << left << setw(15) << "Avg Score: " << avgS << endl;
+}
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+void swap(double& a, double& b)
+{
+    double temp = a;
+    a = b;
+    b = temp;
+}
