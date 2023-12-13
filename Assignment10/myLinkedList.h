@@ -2,27 +2,27 @@
 #define LINKED_LIST_H
 
 
-class myLinkedList
+class LinkedList
 {
-private:
-    struct ListN
-    {
-        int       _val;
-        ListN* _next;
-    };
+    private:
+        struct ListNode
+        {
+            int       _val;
+            ListNode* _next;
+        };
 
-public:
-    myLinkedList();
-    ~myLinkedList();
+    public:
+        LinkedList();
+        ~LinkedList();
 
-    
-    void insertN(int v, int loca);
-    void deleteN();
-    void addN(int v);
-    void displayV();
+        void appendN(int val);
+        void insertN(int val, int location);
+        void deleteN();
+        int  search(int val);
+        void displayV();
 
-private:
-    ListN* _head;
+    private:
+        ListNode* _head;
 };
 
 #endif
